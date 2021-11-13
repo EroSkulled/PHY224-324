@@ -56,7 +56,7 @@ for size in sorted(os.listdir(path)):
             plt.plot([k.nominal_value for k in vel], c=color[int(size) - 1])
             plt.xlabel('Time (s)')
             plt.ylabel('Velocity (cm/s)')
-            plt.title('Velocities vs. Time plot \n for different sizes of Teflon beads in water')
+            plt.title('Velocities vs. Time plot \n for different sizes of Nylon beads in water')
             avg_v.append(vel.mean())  # mean velocity for each trial
     plt.plot([], [], c=color[int(size) - 1], label=f'r={radius[(int(size) - 1)]:.3f} mm')  # grouped labels
     plt.legend(loc='best')

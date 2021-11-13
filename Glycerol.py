@@ -52,7 +52,7 @@ for size in sorted(os.listdir(path)):
             time = np.array([ufloat(i, 0.0005) for i in time.tolist()])
             pos = np.array([ufloat(j, 0.001) for j in pos.tolist()])
             time, pos = time[pos > 1e-6], pos[pos > 1e-6]
-            vel = np.diff(pos)[10:]  # drop first few obs for better result
+            vel = np.diff(pos)[0:]  # drop first few obs for better result
             plt.plot([k.nominal_value for k in vel], c=color[int(size) - 1])
             plt.xlabel('Time (s)')
             plt.ylabel('Velocity (cm/s)')
