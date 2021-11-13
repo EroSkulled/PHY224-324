@@ -18,9 +18,9 @@ def model(x, a, b):
     return a * x ** b
 
 
-# eq. 18 for glycerine
+# eq. 12 for water
 def model1(x, a):
-    return a * x ** 2
+    return a * x ** 0.5
 
 
 # color function for the figure
@@ -52,11 +52,11 @@ for size in sorted(os.listdir(path)):
             time = np.array([ufloat(i, 0.0005) for i in time.tolist()])
             pos = np.array([ufloat(j, 0.001) for j in pos.tolist()])
             time, pos = time[pos > 1e-6], pos[pos > 1e-6]
-            vel = np.diff(pos)[10:]  # drop first few obs for better result
+            vel = np.diff(pos)[10:]
             plt.plot([k.nominal_value for k in vel], c=color[int(size) - 1])
             plt.xlabel('Time (s)')
             plt.ylabel('Velocity (cm/s)')
-            plt.title('Velocities vs. Time plot \n for different sizes of Teflon beads in glycerol')
+            plt.title('Velocities vs. Time plot \n for different sizes of Teflon beads in water')
             avg_v.append(vel.mean())  # mean velocity for each trial
     plt.plot([], [], c=color[int(size) - 1], label=f'r={radius[(int(size) - 1)]:.3f} mm')  # grouped labels
     plt.legend(loc='best')
@@ -73,7 +73,7 @@ for v in corr_v:
     print(v)
 
 print("Reynolds number")
-ren = [(re(1.26, v, d / 10, 9.34)) for d, v in zip(diameter, corr_v)]
+ren = [(re(1, v, d / 10, 0.01)) for d, v in zip(diameter, corr_v)]
 for r in ren:
     print(r)
 
@@ -89,7 +89,7 @@ plt.plot(xdat, model(xdat, *popt), c='b', label=f'fit with y={popt[0]:.1f}x^{pop
 plt.plot(xdat, model1(xdat, *popt2), c='r', label=f'fit with eq. 18 (y={popt2[0]:.1f}x^2)')
 plt.xlabel('radius (mm)')
 plt.ylabel('mean terminal velocity (cm/s), corrected for wall effect')
-plt.title(f'radius vs terminal velocity (corrected) for glycerol')
+plt.title(f'radius vs terminal velocity (corrected) for water')
 plt.legend(loc='best')
 plt.show()
 radius = np.array(radius)
